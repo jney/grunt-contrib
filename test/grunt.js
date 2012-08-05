@@ -198,9 +198,17 @@ module.exports = function(grunt) {
     },
 
     jst: {
-      compile: {
+      compileA: {
         files: {
-          "fixtures/output/jst.js": "fixtures/jst/*.html"
+          "fixtures/output/jst_a.js": "fixtures/jst/*.html"
+        }
+      },
+      compileB: {
+        files: {
+          "fixtures/output/jst_b.js": "fixtures/jst/*.html"
+        },
+        options: {
+          underscore: true
         }
       }
     },

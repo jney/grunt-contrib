@@ -34,7 +34,7 @@ module.exports = function(grunt) {
       srcFiles.forEach(function(srcFile) {
         sourceCode = grunt.file.read(srcFile);
 
-        sourceCompiled = grunt.helper("jst", sourceCode, srcFile, helperNamespace, options.templateSettings);
+        sourceCompiled = grunt.helper("jst", sourceCode, srcFile, helperNamespace, options);
 
         taskOutput.push(sourceCompiled);
       });
@@ -46,9 +46,13 @@ module.exports = function(grunt) {
     });
   });
 
-  grunt.registerHelper("jst", function(source, filepath, namespace, templateSettings) {
+  grunt.registerHelper("jst", function(source, filepath, namespace, options) {
     try {
-      return namespace + "['" + filepath + "'] = " + _.template(source, false, templateSettings).source + ";";
+      if (options.underscore === true) {
+        return namespace + "['" + filepath + "'] = _.template(" + JSON.stringify(source) + ");";
+      } else {
+        return namespace + "['" + filepath + "'] = " + _.template(source, false, options.templateSettings).source + ";";
+      }
     } catch (e) {
       grunt.log.error(e);
       grunt.fail.warn("JST failed to compile.");
