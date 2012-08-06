@@ -210,6 +210,16 @@ module.exports = function(grunt) {
         options: {
           underscore: true
         }
+      },
+      compileC: {
+        files: {
+          "fixtures/output/jst_c.js": "fixtures/jst/*.html"
+        },
+        options: {
+          processName: function(filepath) {
+            return filepath.split('fixtures/').pop();
+          }
+        }
       }
     },
 

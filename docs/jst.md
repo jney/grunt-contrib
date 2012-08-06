@@ -27,6 +27,19 @@ This controls how this task (and its helpers) operate and should contain key:val
 
 The namespace in which the resulting JST templates are assigned to.
 
+##### processName ```function```
+
+This option accepts a function that adjusts the template filepath.
+
+``` javascript
+options: {
+  processName: function(filepath) {
+    // shorten the filepath
+    return filepath.split('fixtures/').pop();
+  }
+}
+```
+
 ##### templateSettings ```object```
 
 The settings passed to underscore when compiling templates.

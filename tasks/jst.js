@@ -47,6 +47,11 @@ module.exports = function(grunt) {
   });
 
   grunt.registerHelper("jst", function(source, filepath, namespace, options) {
+
+    if (typeof options.processName == "function") {
+      filepath = options.processName(filepath);
+    }
+
     try {
       if (options.underscore === true) {
         return namespace + "['" + filepath + "'] = _.template(" + JSON.stringify(source) + ");";
